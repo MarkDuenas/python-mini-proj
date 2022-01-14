@@ -26,7 +26,7 @@ class Player:
             win.blit(walk_right, (self.x, self.y))
 
         self.hitbox = (self.x, self.y, 45, 55)
-        pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
+        # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
 
 class Projectile:
@@ -58,18 +58,23 @@ class Boss:
         self.vel = 3
         self.path = [self.x, self.end]
         self.hitbox = (self.x + 20, self.y, 28, 60)
+        self.health = 10
+        self.visible = True
 
     def draw(self, win):
         self.move()
+        if self.visible:
 
-        if self.vel > 0:
-            win.blit(enemy_right, (self.x, self.y))
-        else:
-            win.blit(enemy_left, (self.x, self.y))
+            if self.vel > 0:
+                win.blit(enemy_right, (self.x, self.y))
+            else:
+                win.blit(enemy_left, (self.x, self.y))
 
-        self.hitbox = (self.x, self.y, 60, 65)
+            self.hitbox = (self.x, self.y, 60, 65)
 
-        pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
+            pygame.draw.rect(win, (255, 0, 0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10))
+            pygame.draw.rect(win, (0, 255, 0), (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10))
+            # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
     def move(self):
         if self.vel > 0:
@@ -84,4 +89,9 @@ class Boss:
                 self.vel = self.vel * -1
 
     def hit(self):
+        if self.health > 0:
+            self.health -= 1
+        else:
+            self.visible = False
+
         print("hit")
