@@ -37,11 +37,12 @@ def redraw_game_window():
 
 
 # main loop
-hero = Player(300, 410, 48, 48)
-enemy = Boss(100, 410, 48, 48, 450)
-fireballs = []
-fireball_delay = 0
+hero = Player(300, 410, 48, 48)  # Create player object
+enemy = Boss(100, 410, 48, 48, 450)  # Create enemy object
+fireballs = []  # track fireballs to be drawn on screen
+fireball_delay = 0  # delay fireball spam
 run = True
+
 while run:
     clock.tick(27)
 
